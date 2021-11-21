@@ -102,7 +102,16 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        if(Number(firstNum) == NaN || Number(secondNum) == NaN){
+          console.log(typeof firstNum);
+          throw new aStupidAntonia("Error! Antonia is not stupid!");
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(err){
+        console.error("sleepy");
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -137,7 +146,7 @@
     catch(err){
       console.error(err.message);
     }
-
+    console.log(Number('s'));
     // The Global Error handler and 3rd Party Tracking
 
   </script>
