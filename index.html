@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "3f42135505554da98738f0065b4c8eae"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                          
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -69,21 +76,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button onclick='console.log("Console Log Demo")'>Console Log</button>
+      <button onclick='console.error("Console Error Demo")'>Console Error</button>
+      <button onclick='console.count("Count Button:", count)'>Console Count</button>
+      <button onclick='console.warn("Console Warn Button")'>Console Warn</button>
+      <button onclick='console.assert(2 == 3, {number: 2, errorMsg: "The number does not equal to 3"})'>Console Assert</button>
+      <button onclick='console.clear("Console was cleared")'>Console Clear</button>
+      <button onclick='console.dir(document.location)'>Console Dir</button>
+      <button onclick='console.dirxml(document.scripts)'>Console dirxml</button>
+      <button onclick='console.group()'>Console Group Start</button>
+      <button onclick='console.groupEnd()'>Console Group End</button>
+      <button onclick='console.table([["Antonia", 12], ["Doris", 12], ["FG", 12]])'>Console Table</button>
+      <button onclick='console.time()'>Start Timer</button>
+      <button onclick='console.timeEnd()'>End Timer</button>
+      <button onclick='tracing()'>Console Trace</button>
+      <button onclick='boom'>Trigger a Global Error</button>
     </section>
   </main>
 
@@ -99,9 +106,40 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+    let count = 0;
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+    function tracing(){
+      const deep = () => {deeper();};
+      const deeper = () => {deepest();};
+      const deepest = () => {console.trace()};
+      deep();
+    }
+
+    // Trying try-catch
+    try{
+      aintGonnaWork();
+    }
+    catch{
+      console.error("aintGonnaWork!");
+    }
+
+    // Throw and Custom Errors
+    class aStupidAntonia extends Error{
+      constructor(message){
+        super(message);
+        this.name = "aStupidAntonia";
+      }
+    }
+
+    try{
+      throw new aStupidAntonia("Error! Antonia is not stupid!");
+    }
+    catch(err){
+      console.error(err.message);
+    }
+
+    // The Global Error handler and 3rd Party Tracking
+
   </script>
 </body>
 
